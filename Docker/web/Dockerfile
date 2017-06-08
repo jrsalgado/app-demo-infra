@@ -15,7 +15,7 @@ WORKDIR $TEMPDIR
 RUN git clone -b master https://github.com/jrsalgado/web-app-demo.git $TEMPDIR && \
     npm install && \
     npm run build && \
-    npm uninstall -g create-react-ap && \
+    npm uninstall -g create-react-app && \
     mv -v $TEMPDIR/build $WORKDIR/build && \
     rm -rf $TEMPDIR
 
