@@ -2,11 +2,29 @@ version: '3'
 services:
   web:
     build: ./Docker/web
+    image: jsalgado/appdemoinfra_web:latest
     ports:
       - "80:5000"
+    deploy:
+      replicas: 2
     command: [serve, -s, build]
   api:
     build: ./Docker/api
+    image: jsalgado/appdemoinfra_api:latest
     ports:
       - "3100:3100"
+    deploy:
+      replicas: 2
     command: [npm, start]
+
+# build service images
+# $ docker-compose build
+
+# build individual service images
+# $ docker-compose build [service name]
+
+# run services
+# $ docker-compose up
+
+# remove services
+# $ docker-compose down
