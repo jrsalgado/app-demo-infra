@@ -7,7 +7,7 @@ ENV WORKDIR=/usr/src/app/
 
 WORKDIR $WORKDIR
 
-RUN git clone -b develop https://github.com/jrsalgado/api-demo.git . && \
+RUN git clone -b master https://github.com/jrsalgado/api-demo.git . && \
     npm install
 
 EXPOSE 3100

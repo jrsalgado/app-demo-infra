@@ -12,7 +12,7 @@ RUN npm install -g create-react-app && \
     mkdir $TEMPDIR
 
 WORKDIR $TEMPDIR
-RUN git clone -b develop https://github.com/jrsalgado/web-app-demo.git $TEMPDIR && \
+RUN git clone -b master https://github.com/jrsalgado/web-app-demo.git $TEMPDIR && \
     npm install && \
     npm run build && \
     npm uninstall -g create-react-ap && \
