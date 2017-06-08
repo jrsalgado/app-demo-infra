@@ -3,20 +3,20 @@ services:
   web:
     # requires to git clone https://github.com/jrsalgado/api-demo.git
     build:
-      context: ../web-app-demo/
+      context: ./app/web-app-demo/
       # by default build search for Dockerfile in your context
       dockerfile: Dockerfile
     volumes:
-      - ../web-app-demo:/usr/src/app/
+      - ./app/web-app-demo:/usr/src/app/
       - /usr/src/app/node_modules
     ports:
       - "81:3000"
     command: [npm, start]
   api:
     # requires to git clone https://github.com/jrsalgado/api-demo.git
-    build: ../api-demo/
+    build: ./app/api-demo/
     volumes:
-      - ../api-demo:/usr/src/app/
+      - ./app/api-demo:/usr/src/app/
       - /usr/src/app/node_modules
     ports:
       - "3101:3100"
