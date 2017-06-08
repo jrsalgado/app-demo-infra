@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web:
+    build: ./Docker/web
+    ports:
+      - "80:5000"
+    command: [serve, -s, build]
+  api:
+    build: ./Docker/api
+    ports:
+      - "3100:3100"
+    command: [npm, start]
