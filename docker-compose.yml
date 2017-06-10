@@ -5,9 +5,21 @@ services:
       context: ./Docker/web
       args:
         REACT_APP_API_URL: http://test01-ExternalLoa-ZSBLJWN53RGE-1833574909.us-west-1.elb.amazonaws.com:3100
+        REACT_APP_ADMIN_URL: http://test01-ExternalLoa-ZSBLJWN53RGE-1833574909.us-west-1.elb.amazonaws.com:82
     image: jsalgado/appdemoinfra_web:latest
     ports:
       - "80:5000"
+    deploy:
+      replicas: 2
+    command: [serve, -s, build]
+  admin:
+    build:
+      context: ./Docker/admin
+      args:
+        REACT_APP_API_URL: http://test01-ExternalLoa-ZSBLJWN53RGE-1833574909.us-west-1.elb.amazonaws.com:3100
+    image: jsalgado/appdemoinfra_admin:latest
+    ports:
+      - "82:5000"
     deploy:
       replicas: 2
     command: [serve, -s, build]

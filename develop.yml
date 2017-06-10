@@ -6,6 +6,7 @@ services:
       context: ./app/web-app-demo/
       # by default build search for Dockerfile in your context
       dockerfile: Dockerfile
+    image: jsalgado/appdemoinfra_web_dev:latest
     environment:
        REACT_APP_API_URL: http://localhost:3101
        REACT_APP_ADMIN_URL: http://localhost:82
@@ -21,17 +22,19 @@ services:
       context: ./app/admin-demo/
       # by default build search for Dockerfile in your context
       dockerfile: Dockerfile
+    image: jsalgado/appdemoinfra_admin_dev:latest
     environment:
        REACT_APP_API_URL: http://localhost:3101
     volumes:
       - ./app/admin-demo:/usr/src/app/
       - /usr/src/app/node_modules
     ports:
-      - "82:3000"
+      - "83:3000"
     command: [npm, start]
   api:
     # requires to git clone https://github.com/jrsalgado/api-demo.git
     build: ./app/api-demo/
+    image: jsalgado/appdemoinfra_api_dev:latest
     volumes:
       - ./app/api-demo:/usr/src/app/
       - /usr/src/app/node_modules
