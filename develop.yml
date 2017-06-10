@@ -1,18 +1,33 @@
 version: '3'
 services:
   web:
-    # requires to git clone https://github.com/jrsalgado/api-demo.git
+    # requires to git clone https://github.com/jrsalgado/web-app-demo.git
     build:
       context: ./app/web-app-demo/
       # by default build search for Dockerfile in your context
       dockerfile: Dockerfile
     environment:
        REACT_APP_API_URL: http://localhost:3101
+       REACT_APP_ADMIN_URL: http://localhost:82
     volumes:
       - ./app/web-app-demo:/usr/src/app/
       - /usr/src/app/node_modules
     ports:
       - "81:3000"
+    command: [npm, start]
+  admin:
+    # requires to git clone https://github.com/jrsalgado/admin-demo.git
+    build:
+      context: ./app/admin-demo/
+      # by default build search for Dockerfile in your context
+      dockerfile: Dockerfile
+    environment:
+       REACT_APP_API_URL: http://localhost:3101
+    volumes:
+      - ./app/admin-demo:/usr/src/app/
+      - /usr/src/app/node_modules
+    ports:
+      - "82:3000"
     command: [npm, start]
   api:
     # requires to git clone https://github.com/jrsalgado/api-demo.git
