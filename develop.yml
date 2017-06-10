@@ -46,15 +46,8 @@ services:
       - backend
     command: [npm, run, develop]
   db:
-    image: mongo
     ports:
       - "27117:27017"
-    networks:
-      - backend
-
-networks:
-  backend:
-
 
 # build service images
 # $ docker-compose -f docker-compose.yml -f develop.yml build
