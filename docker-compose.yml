@@ -1,7 +1,10 @@
 version: '3'
 services:
   web:
-    build: ./Docker/web
+    build:
+      context: ./Docker/web
+      args:
+        REACT_APP_API_URL: http://test01-ExternalLoa-ZSBLJWN53RGE-1833574909.us-west-1.elb.amazonaws.com:3100
     image: jsalgado/appdemoinfra_web:latest
     ports:
       - "80:5000"
@@ -15,7 +18,20 @@ services:
       - "3100:3100"
     deploy:
       replicas: 2
+    depends_on:
+      - db
+    networks:
+      - backend
     command: [npm, start]
+  db:
+    image: mongo
+    ports:
+      - "27117:27017"
+    networks:
+      - backend
+
+networks:
+  backend:
 
 # build service images
 # $ docker-compose build
@@ -28,3 +44,8 @@ services:
 
 # remove services
 # $ docker-compose down
+
+# swarm mode after build push new images to docker hub
+# docker-compose build --no-cache
+# docker tag appdemoinfra_api jsalgado/appdemoinfra_api:latest && docker tag appdemoinfra_web jsalgado/appdemoinfra_web:latest
+# docker push jsalgado/appdemoinfra_web:latest && docker push jsalgado/appdemoinfra_api:latest

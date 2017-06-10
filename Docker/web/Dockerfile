@@ -6,6 +6,9 @@ RUN echo "building WEB from production"
 ENV WORKDIR=/usr/src/app
 ENV TEMPDIR=/usr/src/temp
 
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+
 RUN npm install -g create-react-app && \
     npm install -g serve && \
     mkdir $WORKDIR && \
