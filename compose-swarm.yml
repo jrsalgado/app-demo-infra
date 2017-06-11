@@ -1,0 +1,46 @@
+version: '3'
+services:
+  web:
+    build:
+      args:
+        REACT_APP_API_URL: http://test01-ExternalLoa-ZSBLJWN53RGE-1833574909.us-west-1.elb.amazonaws.com:3100
+        REACT_APP_ADMIN_URL: http://test01-ExternalLoa-ZSBLJWN53RGE-1833574909.us-west-1.elb.amazonaws.com:8080
+    image: jsalgado/appdemoinfra_web:swarmmode
+    ports:
+      - "80:5000"
+    deploy:
+      replicas: 2
+    command: [serve, -s, build]
+  admin:
+    build:
+      args:
+        REACT_APP_API_URL: http://test01-ExternalLoa-ZSBLJWN53RGE-1833574909.us-west-1.elb.amazonaws.com:3100
+    deploy:
+      replicas: 2
+    ports:
+      - "8080:5000"
+    command: [serve, -s, build]
+    image: jsalgado/appdemoinfra_admin:swarmmode
+  api:
+    image: jsalgado/appdemoinfra_api:swarmmode
+    deploy:
+      replicas: 2
+    ports:
+      - "3100:3100"
+    command: [npm, start]
+# build the images
+# docker-compose -f docker-compose.yml -f compose-swarm.yml build --no-cache admin api web
+
+# push images to docker hub and create bundle
+
+# docker push jsalgado/appdemoinfra_web:swarmmode
+# docker push jsalgado/appdemoinfra_admin:swarmmode
+# docker push jsalgado/appdemoinfra_api:swarmmode
+
+# docker-compose -f docker-compose.yml -f compose-swarm.yml bundle -o Docker/swarm/appdemoinfra.dab
+
+# or push and bundle --push-images
+# docker-compose -f docker-compose.yml -f compose-swarm.yml bundle --push-images -o Docker/swarm/appdemoinfra.dab
+
+# deploy to swarm
+# docker stack deploy --bundle-file ./Docker/swarm/appdemoinfra.dab  dcup-app --with-registry-auth

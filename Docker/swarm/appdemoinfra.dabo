@@ -1,0 +1,70 @@
+{
+  "Services": {
+    "admin": {
+      "Args": [
+        "serve", 
+        "-s", 
+        "build"
+      ], 
+      "Image": "jsalgado/appdemoinfra_admin@sha256:b0fb8bca27fbc43affc43104db8829d84af6cdbe09cf21a1d79be4438b5a5a0e", 
+      "Labels": {
+        "com.app-demo-infra.admin.description": "Result display app"
+      }, 
+      "Networks": [
+        "default"
+      ], 
+      "Ports": [
+        {
+          "Port": 5000, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "api": {
+      "Args": [
+        "npm", 
+        "start"
+      ], 
+      "Image": "jsalgado/appdemoinfra_api@sha256:76edac7dd088576b6acd0ff7c59993712a8346cbbcf6820d3627d315bd80506f", 
+      "Labels": {
+        "com.app-demo-infra.web.description": "Voting API"
+      }, 
+      "Networks": [
+        "backend"
+      ], 
+      "Ports": [
+        {
+          "Port": 3100, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "db": {
+      "Image": "mongo@sha256:aff0c497cff4f116583b99b21775a8844a17bcf5c69f7f3f6028013bf0d6c00c", 
+      "Networks": [
+        "backend"
+      ]
+    }, 
+    "web": {
+      "Args": [
+        "serve", 
+        "-s", 
+        "build"
+      ], 
+      "Image": "jsalgado/appdemoinfra_web@sha256:056e0972bf9e6280fa2ba4b892a0da40c3805865d90e71092c80d97d4d4c1465", 
+      "Labels": {
+        "com.app-demo-infra.web.description": "Voting app"
+      }, 
+      "Networks": [
+        "default"
+      ], 
+      "Ports": [
+        {
+          "Port": 5000, 
+          "Protocol": "tcp"
+        }
+      ]
+    }
+  }, 
+  "Version": "0.1"
+}
