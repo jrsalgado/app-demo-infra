@@ -4,24 +4,28 @@ services:
     build:
       context: ./Docker/web
       args:
-        REACT_APP_API_URL: http://localhost:3100
-        REACT_APP_ADMIN_URL: http://localhost:8080
+        REACT_APP_API_URL: http://test01-ExternalLoa-ZSBLJWN53RGE-1833574909.us-west-1.elb.amazonaws.com:3100
+        REACT_APP_ADMIN_URL: http://test01-ExternalLoa-ZSBLJWN53RGE-1833574909.us-west-1.elb.amazonaws.com:8080
     image: jsalgado/appdemoinfra_web:latest
     labels:
       com.app-demo-infra.web.description: "Voting app"
     ports:
       - "80:5000"
+    deploy:
+      replicas: 2
     command: [serve, -s, build]
   admin:
     build:
       context: ./Docker/admin
       args:
-        REACT_APP_API_URL: http://localhost:3100
+        REACT_APP_API_URL: http://test01-ExternalLoa-ZSBLJWN53RGE-1833574909.us-west-1.elb.amazonaws.com:3100
     image: jsalgado/appdemoinfra_admin:latest
     labels:
       com.app-demo-infra.admin.description: "Result display app"
     ports:
       - "8080:5000"
+    deploy:
+      replicas: 2
     command: [serve, -s, build]
   api:
     build: ./Docker/api
@@ -30,6 +34,8 @@ services:
       com.app-demo-infra.web.description: "Voting API"
     ports:
       - "3100:3100"
+    deploy:
+      replicas: 2
     depends_on:
       - db
     networks:
@@ -42,20 +48,3 @@ services:
 
 networks:
   backend:
-
-# build service images
-# $ docker-compose build
-
-# build individual service images
-# $ docker-compose build [service name]
-
-# run services
-# $ docker-compose up
-
-# remove services
-# $ docker-compose down
-
-# swarm mode after build push new images to docker hub
-# docker-compose build --no-cache
-# docker tag appdemoinfra_api jsalgado/appdemoinfra_api:latest && docker tag appdemoinfra_web jsalgado/appdemoinfra_web:latest
-# docker push jsalgado/appdemoinfra_web:latest && docker push jsalgado/appdemoinfra_api:latest
