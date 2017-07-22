@@ -4,8 +4,8 @@ services:
     build:
       context: ./Docker/web
       args:
-        REACT_APP_API_URL: http://pwd10-0-134-3-80.host2.labs.play-with-docker.com/:3100
-        REACT_APP_ADMIN_URL: http://pwd10-0-134-3-80.host2.labs.play-with-docker.com/:8080
+        REACT_APP_API_URL: http://pwd10-0-134-3-3100.host2.labs.play-with-docker.com
+        REACT_APP_ADMIN_URL: http://pwd10-0-134-3-8080.host2.labs.play-with-docker.com
     image: jsalgado/appdemoinfra_web:meetup
     labels:
       com.app-demo-infra.web.description: "Voting app"
@@ -18,7 +18,7 @@ services:
     build:
       context: ./Docker/admin
       args:
-        REACT_APP_API_URL: http://pwd10-0-134-3-80.host2.labs.play-with-docker.com/:3100
+        REACT_APP_API_URL: http://pwd10-0-134-3-3100.host2.labs.play-with-docker.com
     image: jsalgado/appdemoinfra_admin:meetup
     labels:
       com.app-demo-infra.admin.description: "Result display app"
