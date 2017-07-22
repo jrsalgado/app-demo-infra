@@ -1,0 +1,50 @@
+version: '3'
+services:
+  web:
+    build:
+      context: ./Docker/web
+      args:
+        REACT_APP_API_URL: http://pwd10-0-134-3-80.host2.labs.play-with-docker.com/:3100
+        REACT_APP_ADMIN_URL: http://pwd10-0-134-3-80.host2.labs.play-with-docker.com/:8080
+    image: jsalgado/appdemoinfra_web:latest
+    labels:
+      com.app-demo-infra.web.description: "Voting app"
+    ports:
+      - "80:5000"
+    deploy:
+      replicas: 2
+    command: [serve, -s, build]
+  admin:
+    build:
+      context: ./Docker/admin
+      args:
+        REACT_APP_API_URL: http://pwd10-0-134-3-80.host2.labs.play-with-docker.com/:3100
+    image: jsalgado/appdemoinfra_admin:latest
+    labels:
+      com.app-demo-infra.admin.description: "Result display app"
+    ports:
+      - "8080:5000"
+    deploy:
+      replicas: 2
+    command: [serve, -s, build]
+  api:
+    build: ./Docker/api
+    image: jsalgado/appdemoinfra_api:latest
+    labels:
+      com.app-demo-infra.web.description: "Voting API"
+    ports:
+      - "3100:3100"
+    deploy:
+      replicas: 2
+    depends_on:
+      - db
+    networks:
+      - backend
+    command: [npm, start]
+  db:
+    image: mongo
+    networks:
+      - backend
+
+networks:
+  backend:
