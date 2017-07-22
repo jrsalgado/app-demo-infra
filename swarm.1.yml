@@ -6,7 +6,7 @@ services:
       args:
         REACT_APP_API_URL: http://pwd10-0-134-3-80.host2.labs.play-with-docker.com/:3100
         REACT_APP_ADMIN_URL: http://pwd10-0-134-3-80.host2.labs.play-with-docker.com/:8080
-    image: jsalgado/appdemoinfra_web:latest
+    image: jsalgado/appdemoinfra_web:meetup
     labels:
       com.app-demo-infra.web.description: "Voting app"
     ports:
@@ -19,7 +19,7 @@ services:
       context: ./Docker/admin
       args:
         REACT_APP_API_URL: http://pwd10-0-134-3-80.host2.labs.play-with-docker.com/:3100
-    image: jsalgado/appdemoinfra_admin:latest
+    image: jsalgado/appdemoinfra_admin:meetup
     labels:
       com.app-demo-infra.admin.description: "Result display app"
     ports:
@@ -29,7 +29,7 @@ services:
     command: [serve, -s, build]
   api:
     build: ./Docker/api
-    image: jsalgado/appdemoinfra_api:latest
+    image: jsalgado/appdemoinfra_api:meetup
     labels:
       com.app-demo-infra.web.description: "Voting API"
     ports:
